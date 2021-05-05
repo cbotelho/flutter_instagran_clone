@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_instagram_codingpapa/feed_screen.dart';
 import 'package:flutter_instagram_codingpapa/screens/profile_screen.dart';
 
+import 'constants/screen_size.dart';
+
 // 위젯은 클래스의 일부
 class HomePage extends StatefulWidget {
   HomePage({
@@ -36,6 +38,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    if (size == null) size = MediaQuery.of(context).size;
     return Scaffold(
       // body: _screens[_selectedIndex], //? 이 방식은 screens를 계속 재생성해준다. 넘 안좋지.
       body: IndexedStack(

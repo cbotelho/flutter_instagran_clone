@@ -1,13 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_instagram_codingpapa/constants/common_size.dart';
+import 'package:flutter_instagram_codingpapa/constants/screen_size.dart';
 import 'package:flutter_instagram_codingpapa/widgets/comment.dart';
 import 'package:flutter_instagram_codingpapa/widgets/my_progress_indicator.dart';
 import 'package:flutter_instagram_codingpapa/widgets/rounded_avatar.dart';
 
 class Post extends StatelessWidget {
   final int index;
-  Size size;
+  // Size size;
   // 위애 size 변수를 선언한 순간 이건 변하는 값이라서 아래 const에서 에러가 나게된다. ... const를 지운다
   // const Post(
   Post(
@@ -22,7 +23,9 @@ class Post extends StatelessWidget {
     //   height: 100,
     // );
 
-    if (size == null) size = MediaQuery.of(context).size;
+    //! 아래 size를 자주 쓰므로 size 파일을 따로 만들고 아래 구문을
+    //! HomePage 에 써놓음으로써 모든 곳에서 아래 size를 사용.
+    // if (size == null) size = MediaQuery.of(context).size;
 
     //? 이 캐쉬네트워크 이미지는 우리가 다운받은 이미지들을 저장해놓아서 효율적. 한마디로 캐쉬를 사용.
     return Column(
