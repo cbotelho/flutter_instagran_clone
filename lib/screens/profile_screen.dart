@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_instagram_codingpapa/constants/common_size.dart';
+import 'package:flutter_instagram_codingpapa/widgets/profile_body.dart';
 
 class ProfileScreen extends StatelessWidget {
   @override
@@ -11,19 +12,11 @@ class ProfileScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             _appbar(),
-            _username(),
+            // sliverList  는  sliver로 감싼 리스트뷰
+            // CustomScrollView는 Expanded로 감싸야한다. 안그러면 안보여 SliverChildListDelegate가 전체를 먹기 때문에.
+            ProfileBody(),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _username() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: common_gap),
-      child: Text(
-        "username",
-        style: TextStyle(fontWeight: FontWeight.bold),
       ),
     );
   }
