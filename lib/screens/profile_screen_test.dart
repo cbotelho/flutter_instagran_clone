@@ -4,7 +4,7 @@ import 'package:flutter_instagram_codingpapa/constants/screen_size.dart';
 import 'package:flutter_instagram_codingpapa/widgets/profile_body.dart';
 
 // enum SelectedMenuBar { left, right }
-//! 메뉴바 화면 이동 구현 성공
+//! 메뉴바 화면 이동 구현 - 문제는 duration, curve가 먹질 않는다.
 class ProfileScreenTest extends StatefulWidget {
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
@@ -26,7 +26,7 @@ class _ProfileScreenState extends State<ProfileScreenTest> {
         child: Stack(children: [
           // if (_selectedMenuBar == false)
           AnimatedContainer(
-            duration: Duration(microseconds: 300),
+            duration: Duration(microseconds: 900),
             curve: Curves.fastOutSlowIn,
             transform: Matrix4.translationValues(_animatedMenuMarginLeft, 0, 0),
             child: Column(
@@ -39,7 +39,7 @@ class _ProfileScreenState extends State<ProfileScreenTest> {
           ),
           // if (_selectedMenuBar == true)
           AnimatedContainer(
-            duration: Duration(microseconds: 300),
+            duration: Duration(microseconds: 900),
             curve: Curves.fastOutSlowIn,
             transform:
                 Matrix4.translationValues(_animatedMenuMarginRight, 0, 0),

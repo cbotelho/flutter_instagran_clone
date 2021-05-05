@@ -2,11 +2,18 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_instagram_codingpapa/constants/common_size.dart';
 import 'package:flutter_instagram_codingpapa/constants/screen_size.dart';
+import 'package:flutter_instagram_codingpapa/screens/profile_screen.dart';
 import 'package:flutter_instagram_codingpapa/widgets/rounded_avatar.dart';
 
 enum SelectedTab { left, right }
 
 class ProfileBody extends StatefulWidget {
+  final Function onMenuChanged;
+
+  const ProfileBody({
+    Key key,
+    this.onMenuChanged,
+  }) : super(key: key);
   @override
   _ProfileBodyState createState() => _ProfileBodyState();
 }
@@ -18,27 +25,80 @@ class _ProfileBodyState extends State<ProfileBody> {
   double _rightImagesMargin = size.width;
   @override
   Widget build(BuildContext context) {
+    return SafeArea(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _appbar(),
+          // sliverList  는  sliver로 감싼 리스트뷰
+          // CustomScrollView는 Expanded로 감싸야한다. 안그러면 안보여 SliverChildListDelegate가 전체를 먹기 때문에.
+          //? ProfileBody(), 대신에 아래내용.
+          Expanded(
+            child: CustomScrollView(
+              slivers: <Widget>[
+                SliverList(
+                  delegate: SliverChildListDelegate([
+                    _userStatus(),
+                    _username(),
+                    _userBio(),
+                    _editProfileBtn(), //? CustomScrollView 안에 SliverList로 넣으니까 가로를 꽉 채우는 버튼이 되었다.
+                    _tabButtons(),
+                    _selectedIndicator(),
+                  ]),
+                ),
+                _imagesPager(),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+
     // sliverList  는  sliver로 감싼 리스트뷰
     // CustomScrollView는 Expanded로 감싸야한다.
     // 안그러면 안보여 SliverChildListDelegate가 전체를 먹기 때문에.
     // 일반 위젯(GridView,ListView 등)을 slivers 안에 넣을때는
     // SliverToBoxAdapter로 감싸줘야한다.
-    return Expanded(
-      child: CustomScrollView(
-        slivers: <Widget>[
-          SliverList(
-            delegate: SliverChildListDelegate([
-              _userStatus(),
-              _username(),
-              _userBio(),
-              _editProfileBtn(), //? CustomScrollView 안에 SliverList로 넣으니까 가로를 꽉 채우는 버튼이 되었다.
-              _tabButtons(),
-              _selectedIndicator(),
-            ]),
-          ),
-          _imagesPager(),
-        ],
-      ),
+    //
+    // return Expanded(
+    //   child: CustomScrollView(
+    //     slivers: <Widget>[
+    //       SliverList(
+    //         delegate: SliverChildListDelegate([
+    //           _userStatus(),
+    //           _username(),
+    //           _userBio(),
+    //           _editProfileBtn(), //? CustomScrollView 안에 SliverList로 넣으니까 가로를 꽉 채우는 버튼이 되었다.
+    //           _tabButtons(),
+    //           _selectedIndicator(),
+    //         ]),
+    //       ),
+    //       _imagesPager(),
+    //     ],
+    //   ),
+    // );
+  }
+
+  Row _appbar() {
+    return Row(
+      children: <Widget>[
+        SizedBox(
+          width: 44,
+        ),
+        Expanded(
+            child: Text(
+          "The Coding Chan",
+          textAlign: TextAlign.center,
+        )),
+        IconButton(
+          icon: Icon(Icons.menu),
+          //! onPressed가 null 이면 아이콘이 회색. null이 아니면 활성화된다.
+          onPressed: () {
+            widget
+                .onMenuChanged(); // 이 함수의 내용은 profileScreen에서 정의되있다. 여기선 트리거역할.
+          },
+        ),
+      ],
     );
   }
 
@@ -91,13 +151,13 @@ class _ProfileBodyState extends State<ProfileBody> {
     return SliverToBoxAdapter(
       child: Stack(children: [
         AnimatedContainer(
-          duration: Duration(milliseconds: 300),
+          duration: duration,
           transform: Matrix4.translationValues(_leftImagesMargin, 0, 0),
           curve: Curves.fastOutSlowIn,
           child: _images(),
         ),
         AnimatedContainer(
-          duration: Duration(milliseconds: 300),
+          duration: duration,
           transform: Matrix4.translationValues(_rightImagesMargin, 0, 0),
           curve: Curves.fastOutSlowIn,
           child: _images(),
@@ -122,7 +182,7 @@ class _ProfileBodyState extends State<ProfileBody> {
 
   Widget _selectedIndicator() {
     return AnimatedContainer(
-      duration: Duration(milliseconds: 300),
+      duration: duration,
       alignment: _selectedTab == SelectedTab.left
           ? Alignment.centerLeft
           : Alignment.centerRight,
