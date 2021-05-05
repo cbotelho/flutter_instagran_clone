@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_instagram_codingpapa/constants/common_size.dart';
+import 'package:flutter_instagram_codingpapa/widgets/comment.dart';
 import 'package:flutter_instagram_codingpapa/widgets/my_progress_indicator.dart';
 import 'package:flutter_instagram_codingpapa/widgets/rounded_avatar.dart';
 
@@ -30,17 +31,35 @@ class Post extends StatelessWidget {
         _postHeader(),
         _postImage(),
         _postActions(),
-        Padding(
-          padding: const EdgeInsets.only(left: common_gap),
-          child: Text(
-            '12000 likes',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-        )
+        _postLikes(),
+        _postCaption(),
       ],
     );
   }
 
+  Widget _postCaption() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+          horizontal: common_gap, vertical: common_xxs_gap),
+      child: Comment(
+        showImage: false,
+        username: 'testingUser',
+        text: 'money~',
+      ),
+    );
+  }
+
+  Padding _postLikes() {
+    return Padding(
+      padding: const EdgeInsets.only(left: common_gap),
+      child: Text(
+        '12000 likes',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+//?  TextSpan은 ThemeData의 primarySwatch의 색을 따라가. 따로 지정해줘야돼
   Row _postActions() {
     return Row(
       children: <Widget>[
