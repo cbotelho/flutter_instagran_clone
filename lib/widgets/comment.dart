@@ -16,6 +16,7 @@ class Comment extends StatelessWidget {
     this.dateTime,
   }) : super(key: key);
 
+//! if문. if문을 사용할 수는 있으나 {} 를 사용할 수 없고 한구절씩만 가능하다.
   @override
   Widget build(BuildContext context) {
     return Row(

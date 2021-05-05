@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_instagram_codingpapa/feed_screen.dart';
+import 'package:flutter_instagram_codingpapa/screens/feed_screen.dart';
 import 'package:flutter_instagram_codingpapa/screens/profile_screen.dart';
+import 'package:flutter_instagram_codingpapa/screens/profile_screen_test.dart';
 
 import 'constants/screen_size.dart';
 
@@ -34,6 +35,7 @@ class _HomePageState extends State<HomePage> {
     Container(color: Colors.greenAccent),
     Container(color: Colors.deepPurpleAccent),
     ProfileScreen(),
+    // ProfileScreenTest(),
   ];
 
   @override
