@@ -273,6 +273,61 @@ class _ProfileBodyState extends State<ProfileBody>
     });
   }
 
+  // Widget _selectedIndicator() {
+  //   return AnimatedContainer(
+  //     duration: Duration(milliseconds: 300),
+  //     alignment: _selectedTab == SelectedTab.left
+  //         ? Alignment.centerLeft
+  //         : Alignment.centerRight,
+  //     child: Container(
+  //       height: 2,
+  //       width: size.width / 2,
+  //       color: Colors.black87,
+  //     ),
+  //     curve: Curves.fastOutSlowIn,
+  //   );
+  // }
+
+  // Row _tabButtons() {
+  //   return Row(
+  //     // mainAxisAlignment: MainAxisAlignment.spaceAround,
+  //     // spaceAround로 하면 딱 이미지 크기만 터치가 가능하지만 아래처럼
+  //     // Expanded로 감싸면 넓은 범위를 터치할수있게되니 이게 더 좋다.
+  //     children: <Widget>[
+  //       Expanded(
+  //         child: IconButton(
+  //           icon: ImageIcon(
+  //             AssetImage('assets/images/grid.png'),
+  //             color: _selectedTab == SelectedTab.left
+  //                 ? Colors.black
+  //                 : Colors.black26,
+  //           ),
+  //           onPressed: () {
+  //             setState(() {
+  //               _selectedTab = SelectedTab.left;
+  //             });
+  //           },
+  //         ),
+  //       ),
+  //       Expanded(
+  //         child: IconButton(
+  //           icon: ImageIcon(
+  //             AssetImage('assets/images/saved.png'),
+  //             color: _selectedTab == SelectedTab.left
+  //                 ? Colors.black26
+  //                 : Colors.black,
+  //           ),
+  //           onPressed: () {
+  //             setState(() {
+  //               _selectedTab = SelectedTab.right;
+  //             });
+  //           },
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
+
   Padding _editProfileBtn() {
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -312,3 +367,5 @@ class _ProfileBodyState extends State<ProfileBody>
     );
   }
 }
+
+// enum SelectedTab { left, right }
