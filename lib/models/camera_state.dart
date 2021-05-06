@@ -14,11 +14,19 @@ class CameraState extends ChangeNotifier {
   CameraDescription _cameraDescription;
   bool _readyTakePhoto = false;
 
+  void dispose() {
+    if (_controller != null) _controller.dispose();
+    _controller = null;
+    _cameraDescription = null;
+    _readyTakePhoto = false;
+    notifyListeners();
+  }
+
   void getReadyToTakePhoto() async {
     List<CameraDescription> cameras = await availableCameras(); //1
 
     if (cameras != null && cameras.isNotEmpty) {
-      setcameraDescription(cameras[0]); //2
+      setCameraDescription(cameras[0]); //2
     }
 
     //? initialize()함수안에서 return true가 안나오면(즉 중간에 에러떠서 false를 반환하는 동안)
@@ -34,11 +42,12 @@ class CameraState extends ChangeNotifier {
   }
 
   //3
-  void setcameraDescription(CameraDescription cameraDescription) {
+  void setCameraDescription(CameraDescription cameraDescription) {
     _cameraDescription = cameraDescription;
     _controller = CameraController(_cameraDescription, ResolutionPreset.medium);
   }
 
+//4
   Future<bool> initialize() async {
     try {
       await _controller.initialize();
