@@ -18,11 +18,29 @@ class ProfileBody extends StatefulWidget {
   _ProfileBodyState createState() => _ProfileBodyState();
 }
 
-class _ProfileBodyState extends State<ProfileBody> {
+//* SingleTickerProviderStateMixin
+class _ProfileBodyState extends State<ProfileBody>
+    with SingleTickerProviderStateMixin {
   // bool selectedLeft = true;
   SelectedTab _selectedTab = SelectedTab.left;
   double _leftImagesMargin = 0;
   double _rightImagesMargin = size.width;
+  AnimationController
+      _iconAnimationController; // 아래 AnimatedController를 만들다 컨트롤러 필요해져서 만듬
+
+  @override
+  void initState() {
+    _iconAnimationController =
+        AnimationController(vsync: this, duration: duration);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _iconAnimationController.dispose(); // 메모리 누수 방지
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -91,11 +109,18 @@ class _ProfileBodyState extends State<ProfileBody> {
           textAlign: TextAlign.center,
         )),
         IconButton(
-          icon: Icon(Icons.menu),
+          // icon: Icon(Icons.menu),
+          icon: AnimatedIcon(
+            icon: AnimatedIcons.menu_close,
+            progress:
+                _iconAnimationController, //? 이 progress가 뭔지를 보니... 컨트롤러를 던져주는 것이네
+          ),
           //! onPressed가 null 이면 아이콘이 회색. null이 아니면 활성화된다.
           onPressed: () {
-            widget
-                .onMenuChanged(); // 이 함수의 내용은 profileScreen에서 정의되있다. 여기선 트리거역할.
+            widget.onMenuChanged(); //이 함수의 내용은profileScreen에서 정의되있다.여기선 트리거역할.
+            _iconAnimationController.status == AnimationStatus.completed
+                ? _iconAnimationController.reverse()
+                : _iconAnimationController.forward();
           },
         ),
       ],

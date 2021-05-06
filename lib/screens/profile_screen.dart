@@ -14,11 +14,10 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   // final duration = Duration(milliseconds: 300);
-  final menuWidth = size.width / 2;
 
+  final menuWidth = size.width / 2;
   double bodyXPos = 0;
   double menuXPos = size.width;
-
   MenuStatus _menuStatus = MenuStatus.closed;
 
   @override
@@ -53,12 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             duration: duration,
             curve: Curves.fastOutSlowIn,
             transform: Matrix4.translationValues(menuXPos, 0, 0),
-            child: Positioned(
-              top: 0,
-              bottom: 0,
-              width: size.width / 2,
-              child: ProfileSideMenu(menuWidth),
-            ),
+            child: ProfileSideMenu(menuWidth),
           ),
         ],
       ),
