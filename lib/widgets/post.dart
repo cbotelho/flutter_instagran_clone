@@ -111,8 +111,7 @@ class Post extends StatelessWidget {
   CachedNetworkImage _postImage() {
     return CachedNetworkImage(
       // 끝애 200/300 은 가로/세로   200/200 으로 바꾸자.
-      imageUrl:
-          'https://picsum.photos/id/$index/2000/2000', // lorem picsum에서 가져옴
+      imageUrl: 'https://picsum.photos/id/$index/300/300', // lorem picsum에서 가져옴
       placeholder: (BuildContext context, String url) {
         return MyProgressIndicator(
           containerSize: size.width,
